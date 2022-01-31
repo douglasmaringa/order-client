@@ -95,7 +95,7 @@ function Checkout() {
             name: name,
           },
         },
-        return_url: 'https://ecstatic-noyce-87c54a.netlify.app/checkout',
+        return_url: 'https://ecstatic-noyce-87c54a.netlify.app/',
       });
   
       if (error) {
@@ -111,7 +111,7 @@ function Checkout() {
                 name: data[0].name,
               },
             },
-            return_url: 'http://localhost:3000/checkout',
+            return_url: 'https://ecstatic-noyce-87c54a.netlify.app/',
           });
       
           if (error) {
