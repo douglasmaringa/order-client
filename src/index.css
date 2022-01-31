@@ -11,3 +11,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+  /* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 599px) {
+  .card{
+    display: grid;
+    grid-template-columns:1fr;
+  }
+  #slider1{
+    height: 40vh;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .card{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    
+  }
+  #slider1{
+    height: 65vh;
+  }
+  .innerCard{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+#link:hover{
+  color: rgb(5, 5, 110);
+  cursor: pointer;
+}
+
