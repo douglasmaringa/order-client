@@ -435,7 +435,7 @@ function SingleFood() {
                             </span></h6>
                     </div>
                     <div class="p-3">
-                        <button class="btn btn-success btn-block btn-lg" onClick={()=>{navigate("/checkout")}}><CurrencyFormat value={getBasketTotal(basket)} displayType={'text'} thousandSeparator={true} prefix={'$'} renderText={value => <div>Pay {value} <i class="feather-arrow-right"></i></div>} /></button>
+                        <button class="btn btn-success btn-block btn-lg" onClick={()=>{navigate("/checkout")}}><CurrencyFormat value={getBasketTotal(basket)} displayType={'text'} thousandSeparator={true} prefix={'$'} renderText={value => <div>Proceed To Checkout {value} <i class="feather-arrow-right"></i></div>} /></button>
                     </div>
                 </div>
             </div>
