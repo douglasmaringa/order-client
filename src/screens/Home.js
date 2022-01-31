@@ -9,6 +9,27 @@ function Home() {
   const[data,setData]=useState([])
 
   useEffect(() => {
+    const checkPayment = async()=>{
+        //checking params to see if payment was success
+        const parsed = queryString.parse(window.location.search);
+        console.log(parsed.redirect_status);
+        if(parsed.redirect_status==="succeeded"){
+            db.collection('order').doc(cookies.id).update({
+                paid:true,
+             })
+            alert("payment succes")
+        }else if(parsed.redirect_status==="failed"){
+            alert("payment failed")
+        }else{
+            console.log("no response from stripe")
+        }
+         
+        
+}
+   checkPayment()
+},[cookies.id])
+
+  useEffect(() => {
     db.collection("food").onSnapshot(snapshot=>{
         setData(snapshot.docs.map(doc=>doc.data()))
       })
