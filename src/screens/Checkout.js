@@ -77,7 +77,7 @@ function Checkout() {
         // Make sure to disable form submission until Stripe.js has loaded.
         return;
       }
-  
+      await placeOrder()
       const idealBank = elements.getElement(IdealBankElement);
   
       // For brevity, this example is using uncontrolled components for
@@ -323,16 +323,7 @@ console.log(cookies.id)
                                                 <div className="form-row">
                                                     <IdealBankSection />
                                                </div>
-      <button class="btn btn-success btn-block btn-lg"  onClick={()=>{placeOrder()}}  >
-      {
-                                load?(<>
-                                <BallTriangle color="#00BFFF" height={40} width={40} />
-                                </>):(<>
-                                    Place Order Then Select Bank then Click Pay
-                                </>)
-                            }
-       
-      </button>
+     
                                                 </div>
                                                 
                                             </div>
