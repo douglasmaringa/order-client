@@ -1,11 +1,13 @@
 import React, { useEffect,useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import {auth,db} from '../firebase'
+import { useStateValue } from '../StateProvider';
 
 function Footer() {
     const[user,setUser]=useState([])
     //const[data,setData]=useState([])
     //const[admin,setAdmin]=useState(false)
+    const [{ basket }, dispatch] = useStateValue();
 
     const navigate = useNavigate();
 
@@ -62,8 +64,10 @@ function Footer() {
             <div class="col bg-white rounded-circle mt-n4 px-3 py-2">
                 <div class="bg-danger rounded-circle mt-n0 shadow">
                     <a onClick={()=>{navigate("/checkout")}} id="link" class="text-white small font-weight-bold text-decoration-none">
-                        <i class="feather-shopping-cart"></i>
-                    </a>
+                       <i class="feather-shopping-cart"></i>
+                       {basket.length}
+                </a>
+                  
                 </div>
             </div>
             <div class="col">
