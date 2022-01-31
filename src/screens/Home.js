@@ -4,9 +4,12 @@ import Header from '../components/Header';
 import HomeCard from "../components/HomeCard"
 import {db} from '../firebase'
 import "../index.css"
+import queryString from 'query-string';
+import { useCookies } from 'react-cookie';
 
 function Home() {
   const[data,setData]=useState([])
+  const [cookies, setCookie] = useCookies(['id']);
 
   useEffect(() => {
     const checkPayment = async()=>{
