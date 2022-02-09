@@ -184,7 +184,7 @@ const open=(e)=>{
           <Typography id="modal-modal-title" variant="h6" component="h2">
                                  <div class="col-md-12 px-0 border-top">
                                     <div class="p-3 border-bottom gold-members">
-                                    <span class="float-right"><button onClick={()=>{addSides("(extras) bread","5")}} class="btn-success btn-outline-secondary btn-sm" style={{"color":"white"}} data-toggle="modal" data-target="#extras">ADD</button></span>
+                                    <span class="float-right"><button onClick={()=>{addSides("(extras) bread","5")}} class="btn-success btn-outline-secondary btn-sm" style={{"color":"yellow"}} data-toggle="modal" data-target="#extras">ADD</button></span>
                                     <div class="media">
                                         <div class="mr-3" style={{"border-radius":"20px"}}>
                                             <img src="https://images.pexels.com/photos/461060/pexels-photo-461060.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" width="120" height="80" />
@@ -481,7 +481,7 @@ const open=(e)=>{
                     <div class="bg-white p-3 py-3 border-bottom clearfix">
                         <div class="input-group-sm mb-2 input-group">
                             <input placeholder="Enter promo code" type="text" class="form-control"/>
-                            <div class="input-group-append"><button type="button" class="btn btn-primary"><i class="feather-percent"></i> APPLY</button></div>
+                            <div class="input-group-append"><button type="button" class="btn btn-success"><i class="feather-percent"></i> APPLY</button></div>
                         </div>
                        
                     </div>
