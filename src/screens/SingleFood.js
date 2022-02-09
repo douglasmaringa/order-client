@@ -418,7 +418,7 @@ const open=(e)=>{
                         </div>
                         <div >
                             <div class="form-group"><label class="form-label small">Your Comment</label><textarea class="form-control" value={comment} onChange={(e)=>{setComment(e.target.value)}}></textarea></div>
-                            <div class="form-group mb-0"><button onClick={submit} type="button" class="btn btn-primary btn-block"> Submit Comment </button></div>
+                            <div class="form-group mb-0"><button onClick={submit} type="button" class="btn btn-success btn-block"> Submit Comment </button></div>
                         </div>
                     </div>
                 </div>
