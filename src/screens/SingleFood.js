@@ -6,8 +6,27 @@ import { useStateValue } from '../StateProvider';
 import { getBasketTotal } from '../reducer'
 import CurrencyFormat from 'react-currency-format';
 import firebase from "firebase";
+import queryString from 'query-string';
+import { useCookies } from 'react-cookie';
 
 import Footer from "../components/Footer";
+import Header from "../components/Header";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 
 function SingleFood() {
     const navigate = useNavigate();
@@ -18,9 +37,34 @@ function SingleFood() {
     const {state} = useLocation();
     const[userDetails,setUserDetails]=useState([])
     const[data,setData]=useState([])
-
+    const [cookies, setCookie] = useCookies(['id']);
     const [{ basket }, dispatch] = useStateValue();
 
+    const [open1, setOpen1] = React.useState(false);
+    const handleOpen = () => setOpen1(true);
+    const handleClose = () => setOpen1(false);
+    
+    useEffect(() => {
+        const checkPayment = async()=>{
+            //checking params to see if payment was success
+            const parsed = queryString.parse(window.location.search);
+            console.log(parsed.redirect_status);
+            if(parsed.redirect_status==="succeeded"){
+                db.collection('order').doc(cookies.id).update({
+                    paid:true,
+                 })
+                alert("payment succes")
+            }else if(parsed.redirect_status==="failed"){
+                alert("payment failed")
+            }else{
+                console.log("no response from stripe")
+            }
+             
+            
+    }
+       checkPayment()
+    },[cookies.id])
+    
     const addToBasket = (e) => {
         //const sum = 1;
         dispatch({
@@ -32,6 +76,21 @@ function SingleFood() {
                
             },
         })
+        setOpen1(true)
+    };
+
+    const addSides = (name,price) => {
+        //const sum = 1;
+        dispatch({
+            type: 'ADD_TO_BASKET',
+            item : {
+                id: uuidv4(),
+                name: name,
+                price: parseInt(price),
+               
+            },
+        })
+        setOpen1(true)
     };
 
     const removeFromBasket = (id) => {
@@ -70,7 +129,6 @@ function SingleFood() {
         db.collection('comment').add({
             timestamp:firebase.firestore.FieldValue.serverTimestamp(),
             name:userDetails[0].name,
-            foodId:state.foodId,
             image:userDetails[0].image,
             comment:comment,
             stars:stars,
@@ -85,95 +143,96 @@ function SingleFood() {
         alert("cannot leave comment or stars black")
     }
    }
+  
+//open food in detail page
+const open=(e)=>{
+    console.log(e)
+    navigate('/details', { state: e });
+}
 
    //getting menu 
     useEffect(() => {
-        db.collection("menu").where("foodId", "==", state.foodId)
+        db.collection("food")
         .onSnapshot((querySnapshot) => {
            
           setData(querySnapshot.docs.map((doc)=>doc.data()))
            
     })
 
-    db.collection("comment").where("foodId", "==", state.foodId)
+    db.collection("comment")
     .onSnapshot((querySnapshot) => {
        
       setReview(querySnapshot.docs.map((doc)=>doc.data()))
        
 })
-    }, [state.foodId])
+    }, [])
     
     console.log(getBasketTotal(basket))
   return (
   <div>
-      
+      <Header/>
 <div class="fixed-bottom-bar">
    {/*Top black hero for food type*/}
     <div class="d-none">
-        <div class="bg-primary p-3 d-flex align-items-center">
-            <a class="toggle togglew toggle-2" href="index.html"><span></span></a>
-            <h4 class="font-weight-bold m-0 text-white">Osahan Bar</h4>
-        </div>
+    <Modal
+        open={open1}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+                                 <div class="col-md-12 px-0 border-top">
+                                    <div class="p-3 border-bottom gold-members">
+                                    <span class="float-right"><button onClick={()=>{addSides("(extras) bread","5")}} class="btn-success btn-outline-secondary btn-sm" style={{"color":"white"}} data-toggle="modal" data-target="#extras">ADD</button></span>
+                                    <div class="media">
+                                        <div class="mr-3" style={{"border-radius":"20px"}}>
+                                            <img src="https://images.pexels.com/photos/461060/pexels-photo-461060.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" width="120" height="80" />
+                                        </div>
+                                        <div class="media-body">
+                                            <h6 class="mb-1" id="link" >(extras) With Bread </h6>
+                                            <p class="text-muted mb-2">€5</p>
+                                            <p class="text-muted mb-0">bread on side</p>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                        </div>
+
+                        <div class="col-md-12 px-0 border-top">
+                                    <div class="p-3 border-bottom gold-members">
+                                    <span class="float-right"><button onClick={()=>{addSides("(extras) sauce","5")}} class="btn-success btn-outline-secondary btn-sm" style={{"color":"white"}} data-toggle="modal" data-target="#extras">ADD</button></span>
+                                    <div class="media">
+                                        <div class="mr-3" style={{"border-radius":"20px"}}>
+                                            <img src="https://images.pexels.com/photos/1435901/pexels-photo-1435901.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" width="120" height="80" />
+                                        </div>
+                                        <div class="media-body">
+                                            <h6 class="mb-1" id="link">(extras) With Sauce </h6>
+                                            <p class="text-muted mb-2">€5</p>
+                                            <p class="text-muted mb-0">Sauce on side</p>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                        </div>
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Choose extras with your food
+            <span class="float-right"><button onClick={()=>{handleClose()}} class="btn-primary btn-outline-secondary btn-sm" style={{"color":"white"}} >Close</button></span>
+          </Typography>
+        </Box>
+      </Modal>
     </div>
     <div class="offer-section py-4">
         <div class="container position-relative">
-            <img alt="" src={state.image} class="restaurant-pic"/>
+            <img alt="" src="https://images.pexels.com/photos/776538/pexels-photo-776538.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" class="restaurant-pic"/>
             <div class="pt-3 text-white">
-                <h2 class="font-weight-bold">{state.name}</h2>
+                <h2 class="font-weight-bold">Sinurame Restraunt</h2>
                 
                 <div class="rating-wrap d-flex align-items-center mt-2">
-                {(() => {
-        switch (state.stars) {
-          case 1:   return (<>
-          <ul class="rating-stars list-unstyled">
-                    <li>
-                        <i class="feather-star text-warning"></i>
-                        <i class="feather-star"></i>
-                        <i class="feather-star"></i>
-                        <i class="feather-star"></i>
-                        <i class="feather-star"></i>
-                    </li>
-                </ul>
-          
-          </>);
-          case 2: return (<>
-          <ul class="rating-stars list-unstyled">
-                    <li>
-                        <i class="feather-star text-warning"></i>
-                        <i class="feather-star text-warning"></i>
-                        <i class="feather-star"></i>
-                        <i class="feather-star"></i>
-                        <i class="feather-star"></i>
-                    </li>
-                </ul>
-          
-            </>);
-          case 3:  return (<>
-          <ul class="rating-stars list-unstyled">
-                    <li>
-                        <i class="feather-star text-warning"></i>
-                        <i class="feather-star text-warning"></i>
-                        <i class="feather-star text-warning"></i>
-                        <i class="feather-star"></i>
-                        <i class="feather-star"></i>
-                    </li>
-                </ul>
-          
-            </>);
-            case 4:  return (<>
-                <ul class="rating-stars list-unstyled">
-                          <li>
-                              <i class="feather-star text-warning"></i>
-                              <i class="feather-star text-warning"></i>
-                              <i class="feather-star text-warning"></i>
-                              <i class="feather-star text-warning"></i>
-                              <i class="feather-star"></i>
-                          </li>
-                      </ul>
-                
-                  </>);
-          default:      return (<>
-          
+               
           <ul class="rating-stars list-unstyled">
                     <li>
                         <i class="feather-star text-warning"></i>
@@ -183,9 +242,7 @@ function SingleFood() {
                         <i class="feather-star text-warning"></i>
                     </li>
                 </ul>
-            </>);
-        }
-      })()}
+           
                     
                     <p class="label-rating text-white ml-2 small"> (245 Reviews)</p>
                 </div>
@@ -204,8 +261,8 @@ function SingleFood() {
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="p-3 bg-primary bg-primary mt-n3 rounded position-relative">
+    <div class="container ">
+        <div class="p-3 btn-success mt-n3 rounded position-relative">
             <div class="d-flex align-items-center">
                 <div class="feather_icon">
                     <a href="#ratings-and-reviews" class="text-decoration-none text-dark"><i class="p-2 bg-light rounded-circle font-weight-bold  feather-upload"></i></a>
@@ -225,7 +282,7 @@ function SingleFood() {
         <div class="row">
             <div class="col-md-8 pt-3">
                 <div class="shadow-sm rounded bg-white mb-3 overflow-hidden">
-                   
+                  
                     <div class="row m-0">
                         <h6 class="p-3 m-0 font-weight-bold w-100">Menu <small class="text-black-50">{data.length} ITEMS</small></h6>
                         <div class="col-md-12 px-0 border-top">
@@ -233,12 +290,16 @@ function SingleFood() {
                             {
                                 data.map((e)=>(
                                     <div class="p-3 border-bottom gold-members">
-                                    <span class="float-right"><button onClick={()=>{addToBasket(e)}} class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#extras">ADD</button></span>
+                                    <span class="float-right"><button onClick={()=>{addToBasket(e)}} class="btn-success btn-outline-secondary btn-sm" style={{"color":"white"}} data-toggle="modal" data-target="#extras">ADD</button></span>
                                     <div class="media">
-                                        <div class="mr-3 font-weight-bold text-danger non_veg">.</div>
+                                        <div class="mr-3" style={{"border-radius":"20px"}}>
+                                            <img src={e.image} alt="" width="120" height="80" />
+                                        </div>
                                         <div class="media-body">
-                                            <h6 class="mb-1">{e.name} </h6>
-                                            <p class="text-muted mb-0">${e.price}</p>
+                                            <h6 class="mb-1" id="link" >{e.name} </h6>
+                                            <p class="text-muted mb-2">€{e.price}</p>
+                                            <p class="text-muted mb-0">{e.desc}</p>
+                                            
                                         </div>
                                     </div>
                                 </div>
