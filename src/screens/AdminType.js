@@ -9,8 +9,10 @@ import Footer from '../components/Footer';
 
 function  AdminType() {
  const[name,setName]=useState("")
+ const[desc,setDesc]=useState("")
  const[data,setData]=useState([])
  const[offer,setOffer]=useState()
+ const[price,setPrice]=useState()
  const[stars,setStars]=useState()
  const[load,setLoad]=useState(false)
     const allInputs={imgUrl:''}
@@ -67,6 +69,8 @@ const submit=(id)=>{
                     timestamp:firebase.firestore.FieldValue.serverTimestamp(),
                     foodId: uuidv4(),
                     name:name,
+                    price:price,
+                    desc:desc,
                     offer:offer,
                     stars:stars,
                     image:firebaseUrl,
@@ -106,7 +110,8 @@ const submit=(id)=>{
                                             <div class="d-flex pt-3">
                                                 <div class="small">
                                                     <p class="text- font-weight-bold mb-0">{e.name}</p>
-                            
+                                                    <p class="text- font-weight-bold mb-0">${e.price}</p>
+                                                    <p class="text- font-weight-bold mb-0">{e.desc}</p>
                                                 </div>
                                                 <div class="text-muted m-0 ml-auto mr-3 font-weight-bold small">Delete {e.name}<br/>
                                                     <span class="text-dark font-weight-bold"></span>
@@ -140,6 +145,10 @@ const submit=(id)=>{
                                         <input type="text" class="form-control" id="exampleInputName1d" value={name} onChange={(e)=>{setName(e.target.value)}}/>
                                     </div>
                                     <div class="form-group">
+                                        <label for="exampleInputName1">Desc</label>
+                                        <input type="text" class="form-control" id="exampleInputName1d" value={desc} onChange={(e)=>{setDesc(e.target.value)}}/>
+                                    </div>
+                                    <div class="form-group">
                             <label for="exampleInputName1" class="text-dark">Image</label>
                             {
                                 load?(<>
@@ -150,6 +159,10 @@ const submit=(id)=>{
                             }
                             <input type="file" onChange={handleImageAsFile} placeholder="upload image" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" />
                         </div>
+                        <div class="form-group">
+                                        <label for="exampleInputNumber1">Price</label>
+                                        <input type="number" class="form-control" id="exampleInputNumber1" value={price} onChange={(e)=>{setPrice(e.target.value)}}/>
+                                    </div>
                                     <div class="form-group">
                                         <label for="exampleInputNumber1">Offer</label>
                                         <input type="number" class="form-control" id="exampleInputNumber1" value={offer} onChange={(e)=>{setOffer(e.target.value)}}/>
