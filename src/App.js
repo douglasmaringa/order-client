@@ -9,7 +9,7 @@ import AdminOrders from "./screens/AdminOrders";
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import { CookiesProvider } from 'react-cookie';
-import Details from "./screens/Details";
+
 
 
 
