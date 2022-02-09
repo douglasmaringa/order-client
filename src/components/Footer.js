@@ -50,28 +50,28 @@ function Footer() {
 <div class="osahan-menu-fotter fixed-bottom bg-white px-3 py-2 text-center d-none">
         <div class="row">
             <div class="col selected">
-                <a onClick={()=>{navigate("/")}} id="link" class="text-danger small font-weight-bold text-decoration-none">
-                    <p class="h4 m-0"><i class="feather-home text-danger"></i></p>
+                <a onClick={()=>{navigate("/")}} id="link" class="text-success small font-weight-bold text-decoration-none">
+                    <p class="h4 m-0"><i class="text-dark feather-home"></i></p>
                     Home
                 </a>
             </div>
             <div class="col">
-                <a  class="text-dark small font-weight-bold text-decoration-none">
+                <a  class="small text-success font-weight-bold text-decoration-none">
                     <p class="h4 m-0"><i class="feather-map-pin"></i></p>
                     Trending
                 </a>
             </div>
             <div class="col bg-white rounded-circle mt-n4 px-3 py-2">
-                <div class="bg-danger rounded-circle mt-n0 shadow">
+                <div class="bg-success rounded-circle mt-n0 shadow">
                     <a onClick={()=>{navigate("/checkout")}} id="link" class="text-white small font-weight-bold text-decoration-none">
-                       <i class="feather-shopping-cart"></i>
-                       {basket.length}
+                       <i class="text-warning feather-shopping-cart">{basket.length}</i>
+        
                 </a>
                   
                 </div>
             </div>
             <div class="col">
-                <a onClick={()=>{navigate("/account")}} id="link" class="text-dark small font-weight-bold text-decoration-none">
+                <a onClick={()=>{navigate("/account")}} id="link" class="text-success small font-weight-bold text-decoration-none">
                     <p class="h4 m-0"><i class="feather-user"></i></p>
                     Profile
                 </a>
@@ -79,8 +79,8 @@ function Footer() {
             <div class="col">
                 {
                     user?(<>
-                     <a onClick={logout} id="link" class="text-dark small font-weight-bold text-decoration-none">
-                    <p class="h4 m-0"><i class="feather-log-out"></i></p>
+                     <a onClick={logout} id="link" class="text-danger small font-weight-bold text-decoration-none">
+                    <p class="h4 m-0"><i class="text-danger feather-log-out"></i></p>
                    Logout
                 </a>
                     </>):(<>
