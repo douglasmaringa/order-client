@@ -24,7 +24,7 @@ function App() {
       <Route path="/" element={<SingleFood />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/details" element={<Details />} />
+      
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/account" element={<Account />} />
       <Route path="/admintype" element={<AdminType/>} />
