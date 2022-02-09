@@ -1,17 +1,15 @@
 import { BrowserRouter,Routes,Route} from "react-router-dom";
-import Home from "./screens/Home";
 import Login from "./screens/Login";
 import Register from "./screens/Register";
 import SingleFood from "./screens/SingleFood";
 import Checkout from "./screens/Checkout"
 import Account from "./screens/Account";
 import AdminType from "./screens/AdminType";
-import AdminMenu from "./screens/AdminMenu";
-import AdminMenuAdd from "./screens/AdminMenuAdd";
 import AdminOrders from "./screens/AdminOrders";
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import { CookiesProvider } from 'react-cookie';
+import Details from "./screens/Details";
 
 
 
@@ -23,15 +21,13 @@ function App() {
       <CookiesProvider>
        <Elements stripe={stripePromise}>
     <Routes> 
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<SingleFood />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/singlefood" element={<SingleFood />} />
+      <Route path="/details" element={<Details />} />
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/account" element={<Account />} />
       <Route path="/admintype" element={<AdminType/>} />
-      <Route path="/adminmenu" element={<AdminMenu/>} />
-      <Route path="/adminmenuadd" element={<AdminMenuAdd/>} />
       <Route path="/adminorders" element={<AdminOrders/>} />
     </Routes>
     </Elements>
