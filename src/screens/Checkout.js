@@ -214,7 +214,7 @@ console.log(cookies.id)
     
     <div class="osahan-checkout">
         <div class="d-none">
-            <div class="bg-primary border-bottom p-3 d-flex align-items-center">
+            <div class="bg-success border-bottom p-3 d-flex align-items-center">
                 <a class="toggle togglew toggle-2" href="index.html"><span></span></a>
                 <h4 class="font-weight-bold m-0 text-white">Checkout</h4>
             </div>
@@ -256,7 +256,7 @@ console.log(cookies.id)
                                         </div>
                                         
                                     </div>
-                                    <a class="btn btn-primary" href="index.html" data-toggle="modal" data-target="#exampleModal"> ADD NEW ADDRESS </a>
+                                    <a class="btn bg-success" href="index.html" data-toggle="modal" data-target="#exampleModal"> ADD NEW ADDRESS </a>
                                 </div>
                             </div>
                         </div>
@@ -414,7 +414,7 @@ console.log(cookies.id)
                         <div class="bg-white p-3 py-3 border-bottom clearfix">
                             <div class="input-group-sm mb-2 input-group">
                                 <input placeholder="Enter promo code" type="text" class="form-control"/>
-                                <div class="input-group-append"><button type="button" class="btn btn-primary"><i class="feather-percent"></i> APPLY</button></div>
+                                <div class="input-group-append"><button type="button" class="btn bg-success"><i class="feather-percent"></i> APPLY</button></div>
                             </div>
                             
                         </div>
