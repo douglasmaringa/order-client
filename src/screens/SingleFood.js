@@ -202,7 +202,7 @@ const open=(e)=>{
 
                         <div class="col-md-12 px-0 border-top">
                                     <div class="p-3 border-bottom gold-members">
-                                    <span class="float-right"><button onClick={()=>{addSides("(extras) sauce","5")}} class="btn-success btn-outline-secondary btn-sm" style={{"color":"white"}} data-toggle="modal" data-target="#extras">ADD</button></span>
+                                    <span class="float-right"><button onClick={()=>{addSides("(extras) sauce","5")}} class="btn-success btn-outline-secondary btn-sm" style={{"color":"yellow"}} data-toggle="modal" data-target="#extras">ADD</button></span>
                                     <div class="media">
                                         <div class="mr-3" style={{"border-radius":"20px"}}>
                                             <img src="https://images.pexels.com/photos/1435901/pexels-photo-1435901.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" width="120" height="80" />
